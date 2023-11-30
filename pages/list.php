@@ -17,7 +17,7 @@ foreach($list as $key => $v) {
         echo '<td>'.$v->name.'</td>';
         echo '<td>'.$v->capital.'</td>';
         echo '<td>'.$v->population.'</td>';
-        echo '<td>'.$v->flag.'</td>';
+        echo '<td>'.'<img src="./pages/display_image.php?id='.$v->id.'" alt="Picture" height="50px"/></td>';
     echo '</tr>';
 }
     echo '</tbody>';

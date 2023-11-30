@@ -66,12 +66,41 @@
                     'flag' => $country->flag
                 ];
                 $ps->execute($params);
-                // var_dump($ps);
             }
             catch (PDOException $ex)
             {
                 echo $ex->getMessage();
                 return false;
+            }
+        }
+
+        static function getFlag($id){
+            //select flag from country where id = id
+            $db = DbHelper::connect();
+            $ps = $db->prepare('select flag from country where id = ?');
+            $ps->execute([$id]);
+            $row = $ps->fetch();
+            if(!$row){
+                return false;
+            }
+            return $row['flag'];
+        }
+
+        static function addPicture ($countryId, $data) {
+            try {
+                $db = DbHelper::connect();
+                $query = 'insert into picture(countryid, image_data) values(:countryid, :image_data)';
+                $ps = $db->prepare($query);
+                $params = [
+                    'countryid' => $countryId, 
+                    'image_data' => $data
+                ];
+                var_dump($db);
+                $ps->execute($params);
+            } 
+            catch (PDOException $ex)
+            {
+                echo $ex->getMessage();
             }
         }
     }

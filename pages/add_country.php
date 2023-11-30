@@ -26,11 +26,15 @@ if( !isset($_POST['submit']) ){
 <?php
 }
 else{
-    $country = new Country($_POST['name'], $_POST['capital'], $_POST['population'], $_POST['flag']);
+
+    if( is_uploaded_file($_FILES['flag']['tmp_name']) ){
+        $flag = file_get_contents($_FILES['flag']['tmp_name']);
+    }
+
+    $country = new Country($_POST['name'], $_POST['capital'], $_POST['population'], $flag);
     var_dump($country);
     CountryRepository::addCountry($country);
     header('Location:./index.php?page=1');
-?>
-<?php
 }
 ?>
+<p> New Country was added </p>
